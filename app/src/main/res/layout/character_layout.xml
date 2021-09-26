@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp"
+    app:cardElevation="4dp"
+    android:padding="4dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/characterImg"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:padding="6dp"
+            android:layout_marginTop="4dp"
+            android:scaleType="centerInside"
+            tools:src="@drawable/characters_icon" />
+
+        <TextView
+            android:id="@+id/chaceterName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Spider Man"
+            android:fontFamily="@font/summercalling"
+            android:textColor="@color/red"
+            android:layout_marginTop="2dp"
+            android:textSize="14sp"
+            android:padding="1dp"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/characterDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Character Desc here..."
+            android:fontFamily="sans-serif-light"
+            android:textStyle="italic"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="6dp"
+            android:padding="2dp"
+            android:textSize="14sp"
+            android:maxLines="2"/>
+
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

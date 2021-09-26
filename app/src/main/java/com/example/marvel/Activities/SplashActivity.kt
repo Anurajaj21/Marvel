@@ -1,4 +1,4 @@
-package com.example.marvel
+package com.example.marvel.Activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +8,7 @@ import android.os.Looper
 import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import androidx.cardview.widget.CardView
+import com.example.marvel.R
 
 class SplashActivity : AppCompatActivity() {
     private val SPLASH_TIME = 2500
