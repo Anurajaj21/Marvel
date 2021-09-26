@@ -30,4 +30,17 @@ class Repository() : SafeApiRequest() {
 
         return null
     }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    suspend fun getSearchedCharacters(sequence : String) : ApiResponse<CharacterResponse>? {
+        val timeStamp = getTimeStamp()
+        val hash = getHash(timeStamp + BuildConfig.PRIVATE_KEY + BuildConfig.PUBLIC_KEY)
+        if (apiInterface != null) {
+            return apiRequest {
+                apiInterface.GetSearchedcCharacters(timeStamp, BuildConfig.PUBLIC_KEY, hash, sequence)
+            }
+        }
+
+        return null
+    }
 }

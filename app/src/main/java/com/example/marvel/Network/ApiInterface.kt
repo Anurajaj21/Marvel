@@ -15,4 +15,12 @@ interface ApiInterface {
         @Query("hash") hash : String
     ) : Response<ApiResponse<CharacterResponse>>
 
+    @GET("characters")
+    suspend fun GetSearchedcCharacters(
+        @Query("ts") timeStamp : String,
+        @Query("apikey") apiKey : String,
+        @Query("hash") hash : String,
+        @Query("nameStartsWith") nameStartsWith : String
+    ) : Response<ApiResponse<CharacterResponse>>
+
 }

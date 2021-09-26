@@ -13,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class ItemsAdapter() : RecyclerView.Adapter<ItemsAdapter.adapterViewHolder>() {
+class CharacterzAdapter() : RecyclerView.Adapter<CharacterzAdapter.adapterViewHolder>() {
 
     private var list : ArrayList<CharacterResponse> = ArrayList()
 

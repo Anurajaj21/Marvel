@@ -13,20 +13,23 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.marvel.Adapters.ItemsAdapter
+import com.example.marvel.Adapters.CharacterzAdapter
 import com.example.marvel.Models.CharacterResponse
 import com.example.marvel.Models.Status
 import com.example.marvel.R
 import com.example.marvel.ViewModels.CharacterViewModel
 import com.example.marvel.databinding.FragmentCharactersBinding
-import timber.log.Timber
 
 class CharactersFragment : Fragment() {
 
+    companion object{
+        var characterList : ArrayList<CharacterResponse> = ArrayList()
+    }
+
     private lateinit var binding : FragmentCharactersBinding
     private lateinit var viewModel : CharacterViewModel
-    private var characterList : ArrayList<CharacterResponse> = ArrayList()
-    private val adapter = ItemsAdapter()
+//    private var characterList : ArrayList<CharacterResponse> = ArrayList()
+    private val adapter = CharacterzAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +59,7 @@ class CharactersFragment : Fragment() {
                 Status.LOADING -> {
                     Log.d("Load", "reach")
                     binding.characterPb.visibility = View.VISIBLE
+                    binding.charactersRv.visibility = View.GONE
                 }
                 Status.SUCCESS -> {
                     binding.characterPb.visibility = View.GONE
@@ -68,6 +72,7 @@ class CharactersFragment : Fragment() {
                 }
                 Status.ERROR -> {
                     binding.characterPb.visibility = View.GONE
+                    binding.charactersRv.visibility = View.GONE
                     Toast.makeText(requireContext(), res.data?.toString(), Toast.LENGTH_SHORT).show()
                 }
             }

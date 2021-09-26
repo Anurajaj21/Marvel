@@ -26,6 +26,10 @@ class CharacterViewModel : ViewModel() {
     val allCharacter: LiveData<Resource<ApiResponse<CharacterResponse>>>
         get() = _allCharacters
 
+    private val _searchedCharacters = MutableLiveData<Resource<ApiResponse<CharacterResponse>>>()
+    val searchedCharacters : LiveData<Resource<ApiResponse<CharacterResponse>>>
+    get() = _searchedCharacters
+
     @RequiresApi(Build.VERSION_CODES.N)
     fun getAllCharacters() {
         _allCharacters.postValue(Resource.loading())
@@ -42,6 +46,27 @@ class CharacterViewModel : ViewModel() {
                     _allCharacters.postValue(Resource.error(e.message.toString()))
                 else
                     _allCharacters.postValue(Resource.error("No Internet."))
+            }
+        }
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun getSearchedCharacters(sequence : String) {
+        _searchedCharacters.postValue(Resource.loading())
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val response = repository.getSearchedCharacters(sequence)
+                Timber.d(response?.data.toString())
+                _searchedCharacters.postValue(Resource.success(response))
+            }
+            catch (e : Exception) {
+                e(e)
+                Timber.d(e.message.toString())
+                if (e is ApiException)
+                    _searchedCharacters.postValue(Resource.error(e.message.toString()))
+                else
+                    _searchedCharacters.postValue(Resource.error("No Internet."))
             }
         }
 
