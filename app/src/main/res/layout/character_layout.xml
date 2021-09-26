@@ -16,38 +16,26 @@
 
         <ImageView
             android:id="@+id/characterImg"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_width="wrap_content"
+            android:layout_height="220dp"
             android:padding="6dp"
+            android:layout_gravity="center"
             android:layout_marginTop="4dp"
-            android:scaleType="centerInside"
+            android:scaleType="fitCenter"
             tools:src="@drawable/characters_icon" />
 
         <TextView
-            android:id="@+id/chaceterName"
+            android:id="@+id/characterName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Spider Man"
             android:fontFamily="@font/summercalling"
             android:textColor="@color/red"
+            android:minLines="2"
             android:layout_marginTop="2dp"
-            android:textSize="14sp"
-            android:padding="1dp"
-            android:gravity="center"/>
-
-        <TextView
-            android:id="@+id/characterDesc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Character Desc here..."
-            android:fontFamily="sans-serif-light"
-            android:textStyle="italic"
-            android:layout_marginTop="4dp"
             android:layout_marginBottom="6dp"
-            android:padding="2dp"
             android:textSize="14sp"
-            android:maxLines="2"/>
-
+            android:gravity="center"/>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

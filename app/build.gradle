@@ -4,6 +4,9 @@ plugins {
     id 'kotlin-android-extensions'
 }
 
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -16,6 +19,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "PRIVATE_KEY", "\"" + localProperties['privateKey'] + "\"")
+        buildConfigField("String", "PUBLIC_KEY", "\"" + localProperties['publicKey'] + "\"")
     }
 
     buildTypes {
@@ -51,4 +57,17 @@ dependencies {
     //Navigation Components
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+    implementation "com.squareup.okhttp3:logging-interceptor:4.5.0"
+
+    // Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 }

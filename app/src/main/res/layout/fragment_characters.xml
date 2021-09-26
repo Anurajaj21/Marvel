@@ -31,8 +31,7 @@
         android:src="@drawable/search_icon"
         android:padding="4dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="6dp"
-        app:layout_constraintBottom_toTopOf="@id/charactersRv"
+        app:layout_constraintBottom_toBottomOf="@id/charactersLabel"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginRight="8dp" />
 
@@ -40,6 +39,7 @@
         android:id="@+id/charactersRv"
         android:layout_width="match_parent"
         android:background="@color/redPassed"
+        android:visibility="gone"
         android:layout_height="0dp"
         android:layout_marginTop="6dp"
         android:layout_marginStart="4dp"
@@ -47,9 +47,23 @@
         tools:itemCount="4"
         tools:listitem="@layout/character_layout"
         app:spanCount="2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/charactersLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    <ProgressBar
+        android:id="@+id/characterPb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateDrawable="@drawable/progress_bg"
+        app:layout_constraintTop_toBottomOf="@id/charactersLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
+        android:layout_gravity="center"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

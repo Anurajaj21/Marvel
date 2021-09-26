@@ -5,14 +5,25 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/charactersFragment">
 
+    <action
+        android:id="@+id/global_action_to_search_character"
+        app:destination="@id/searchFragment" />
+
     <fragment
         android:id="@+id/charactersFragment"
         android:name="com.example.marvel.Fragments.CharactersFragment"
         android:label="fragment_characters"
-        tools:layout="@layout/fragment_characters" />
+        tools:layout="@layout/fragment_characters" >
+
+    </fragment>
     <fragment
         android:id="@+id/comicsFragment"
         android:name="com.example.marvel.Fragments.ComicsFragment"
         android:label="fragment_comics"
         tools:layout="@layout/fragment_comics" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.marvel.Fragments.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
 </navigation>
