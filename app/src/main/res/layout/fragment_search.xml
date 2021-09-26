@@ -4,40 +4,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Fragments.CharactersFragment">
+    tools:context=".Fragments.SearchFragment">
 
-    <TextView
-        android:id="@+id/charactersLabel"
-        android:layout_width="wrap_content"
+    <SearchView
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:paddingStart="4dp"
+        android:animationCache="true"
+        android:background="@drawable/search_background"
+        android:iconifiedByDefault="false"
+        android:padding="2dp"
+        android:searchIcon="@drawable/search_icon"
+        android:queryBackground="@android:color/transparent"
+        android:queryHint="Search here..."
+        android:layout_marginTop="4dp"
         android:layout_marginStart="8dp"
-        android:textStyle="bold"
-        android:text="@string/characters"
-        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:fontFamily="@font/summercalling"
-        android:textColor="@color/light_red"
-        android:layout_marginLeft="8dp"
-        android:paddingLeft="4dp" />
-
-
-    <ImageView
-        android:id="@+id/searchCharacters"
-        android:layout_width="50dp"
-        android:layout_height="40dp"
-        android:src="@drawable/search_icon"
-        android:padding="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="6dp"
-        app:layout_constraintBottom_toTopOf="@id/charactersRv"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginRight="8dp" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/charactersRv"
+        android:id="@+id/charactersRvInSearch"
         android:layout_width="match_parent"
         android:background="@color/redPassed"
         android:layout_height="0dp"
@@ -48,7 +36,7 @@
         tools:listitem="@layout/character_layout"
         app:spanCount="2"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/charactersLabel"
+        app:layout_constraintTop_toBottomOf="@id/searchBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
