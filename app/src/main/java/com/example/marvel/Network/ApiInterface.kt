@@ -24,7 +24,7 @@ interface ApiInterface {
         @Query("nameStartsWith") nameStartsWith : String
     ) : Response<ApiResponse<CharacterResponse>>
 
-    @GET("comics")
+    @GET("comics?offset=90&limit=40&orderBy=-onsaleDate")
     suspend fun GetComics(
         @Query("ts") timeStamp : String,
         @Query("apikey") apiKey : String,

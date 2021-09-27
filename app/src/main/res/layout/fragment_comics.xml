@@ -29,7 +29,6 @@
         android:layout_height="wrap_content"
         android:text="Filter"
         android:textSize="16sp"
-        android:layout_marginBottom="6dp"
         android:drawableRight="@drawable/filter_icon"
         android:drawableTint="@color/red"
         android:textColor="@color/light_red"
@@ -38,7 +37,7 @@
         android:padding="8dp"
         android:fontFamily="sans-serif-medium"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/ComicsRv"
+        app:layout_constraintBottom_toBottomOf="@id/comicsLabel"
         android:layout_marginRight="8dp"
         android:gravity="center_horizontal"
         android:paddingLeft="15dp" />
