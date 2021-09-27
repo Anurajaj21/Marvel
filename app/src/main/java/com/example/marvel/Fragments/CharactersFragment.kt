@@ -46,7 +46,18 @@ class CharactersFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setCharacters()
+
+        if (characterList.isNullOrEmpty()) {
+            setCharacters()
+        }
+        else{
+
+            binding.charactersRv.visibility = View.VISIBLE
+            adapter.getData(characterList)
+            binding.charactersRv.adapter = adapter
+            binding.charactersRv.layoutManager = GridLayoutManager(requireContext(), 2)
+            binding.charactersRv.setHasFixedSize(true)
+        }
         binding.searchCharacters.setOnClickListener {
             findNavController().navigate(R.id.global_action_to_search_character)        }
     }
@@ -57,7 +68,6 @@ class CharactersFragment : Fragment() {
         viewModel.allCharacter.observe(viewLifecycleOwner, Observer { res ->
             when(res.status){
                 Status.LOADING -> {
-                    Log.d("Load", "reach")
                     binding.characterPb.visibility = View.VISIBLE
                     binding.charactersRv.visibility = View.GONE
                 }

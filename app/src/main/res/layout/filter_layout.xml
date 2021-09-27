@@ -72,7 +72,7 @@
         android:id="@+id/filterSave"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
-        android:text="Save"
+        android:text="Filter"
         android:textColor="@color/white"
         android:fontFamily="sans-serif-medium"
         android:background="@drawable/button_background"

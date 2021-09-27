@@ -6,6 +6,7 @@ import com.example.covidtracker.Network.ApiClient
 import com.example.marvel.BuildConfig
 import com.example.marvel.Models.ApiResponse
 import com.example.marvel.Models.CharacterResponse
+import com.example.marvel.Models.ComicsResponse
 import com.example.marvel.Network.ApiInterface
 import com.example.marvel.Network.SafeApiRequest
 import com.example.marvel.Utils.Functions.getHash
@@ -38,6 +39,19 @@ class Repository() : SafeApiRequest() {
         if (apiInterface != null) {
             return apiRequest {
                 apiInterface.GetSearchedcCharacters(timeStamp, BuildConfig.PUBLIC_KEY, hash, sequence)
+            }
+        }
+
+        return null
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    suspend fun getComics() : ApiResponse<ComicsResponse>? {
+        val timeStamp = getTimeStamp()
+        val hash = getHash(timeStamp + BuildConfig.PRIVATE_KEY + BuildConfig.PUBLIC_KEY)
+        if (apiInterface != null) {
+            return apiRequest {
+                apiInterface.GetComics(timeStamp, BuildConfig.PUBLIC_KEY, hash)
             }
         }
 
