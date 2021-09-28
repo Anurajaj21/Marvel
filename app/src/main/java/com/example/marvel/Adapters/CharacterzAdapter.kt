@@ -26,7 +26,7 @@ class CharacterzAdapter() : RecyclerView.Adapter<CharacterzAdapter.adapterViewHo
         fun Characterbind(character : CharacterResponse){
             val image = itemView.findViewById<ImageView>(R.id.characterImg)
             val name = itemView.findViewById<TextView>(R.id.characterName)
-            val imageUrl = character.thumbnail.path + "/portrait_xlarge." + character.thumbnail.extension
+            val imageUrl = character.thumbnail.path + "/standard_fantastic." + character.thumbnail.extension
             GlobalScope.launch(Dispatchers.Main) {
                 Glide.with(image)
                     .load(imageUrl)

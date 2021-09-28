@@ -20,12 +20,12 @@ class Repository() : SafeApiRequest() {
 
 
     @RequiresApi(Build.VERSION_CODES.N)
-    suspend fun getCharacters() : ApiResponse<CharacterResponse>? {
+    suspend fun getCharacters(offset : Int) : ApiResponse<CharacterResponse>? {
         val timeStamp = getTimeStamp()
         val hash = getHash(timeStamp + BuildConfig.PRIVATE_KEY + BuildConfig.PUBLIC_KEY)
         if (apiInterface != null) {
             return apiRequest {
-                apiInterface.GetCharacters(timeStamp, BuildConfig.PUBLIC_KEY, hash)
+                apiInterface.GetCharacters(timeStamp, BuildConfig.PUBLIC_KEY, hash, 10, offset)
             }
         }
 
@@ -33,12 +33,12 @@ class Repository() : SafeApiRequest() {
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
-    suspend fun getSearchedCharacters(sequence : String) : ApiResponse<CharacterResponse>? {
+    suspend fun getSearchedCharacters(offset : Int, sequence : String) : ApiResponse<CharacterResponse>? {
         val timeStamp = getTimeStamp()
         val hash = getHash(timeStamp + BuildConfig.PRIVATE_KEY + BuildConfig.PUBLIC_KEY)
         if (apiInterface != null) {
             return apiRequest {
-                apiInterface.GetSearchedcCharacters(timeStamp, BuildConfig.PUBLIC_KEY, hash, sequence)
+                apiInterface.GetSearchedcCharacters(timeStamp, BuildConfig.PUBLIC_KEY, hash, sequence, 10, offset)
             }
         }
 
@@ -52,6 +52,19 @@ class Repository() : SafeApiRequest() {
         if (apiInterface != null) {
             return apiRequest {
                 apiInterface.GetComics(timeStamp, BuildConfig.PUBLIC_KEY, hash)
+            }
+        }
+
+        return null
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    suspend fun getFilterComics(type : String) : ApiResponse<ComicsResponse>? {
+        val timeStamp = getTimeStamp()
+        val hash = getHash(timeStamp + BuildConfig.PRIVATE_KEY + BuildConfig.PUBLIC_KEY)
+        if (apiInterface != null) {
+            return apiRequest {
+                apiInterface.GetFilterComics(timeStamp, BuildConfig.PUBLIC_KEY, hash, type)
             }
         }
 

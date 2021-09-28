@@ -11,7 +11,7 @@ import androidx.cardview.widget.CardView
 import com.example.marvel.R
 
 class SplashActivity : AppCompatActivity() {
-    private val SPLASH_TIME = 2500
+    private val SPLASH_TIME = 2000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +23,7 @@ class SplashActivity : AppCompatActivity() {
 
         val logoAnim = AnimationUtils.loadAnimation(this, R.anim.fade_in)
         logo.animation = logoAnim
-        logo.animation.duration = 2000
+        logo.animation.duration = 1500
 
         Handler(Looper.getMainLooper()).postDelayed({
 

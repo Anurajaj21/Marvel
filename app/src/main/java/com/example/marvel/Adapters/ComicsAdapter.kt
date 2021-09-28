@@ -7,7 +7,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.marvel.Models.CharacterResponse
 import com.example.marvel.Models.ComicsResponse
 import com.example.marvel.R
 import kotlinx.coroutines.Dispatchers

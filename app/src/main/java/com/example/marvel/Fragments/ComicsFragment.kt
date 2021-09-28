@@ -19,23 +19,30 @@ import com.example.marvel.Adapters.ComicsAdapter
 import com.example.marvel.Models.ComicsResponse
 import com.example.marvel.Models.Status
 import com.example.marvel.R
+import com.example.marvel.Utils.Constants.FILTER_LAST_WEEK
+import com.example.marvel.Utils.Constants.FILTER_NEXT_WEEK
+import com.example.marvel.Utils.Constants.FILTER_THIS_MONTH
+import com.example.marvel.Utils.Constants.FILTER_THIS_WEEK
 import com.example.marvel.ViewModels.ComicsViewModel
 import com.example.marvel.databinding.FragmentComicsBinding
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.filter_layout.view.*
 
 
 class ComicsFragment : Fragment() {
 
     companion object {
-        var comicList: ArrayList<ComicsResponse> = ArrayList()
+        var allComicList : ArrayList<ComicsResponse> = ArrayList()
+        var allStored : Boolean = false
     }
+
 
     private lateinit var binding: FragmentComicsBinding
     private lateinit var viewModel: ComicsViewModel
+    private var comicList: ArrayList<ComicsResponse> = ArrayList()
     private val adapter = ComicsAdapter()
     private lateinit var filterDialog: AlertDialog
     private var selectedOptionId: Int? = null
-    private var filteredList : ArrayList<ComicsResponse> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,14 +60,16 @@ class ComicsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (comicList.isNullOrEmpty()) {
-            getComics()
+        binding.ComicsRv.adapter = adapter
+        binding.ComicsRv.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.ComicsRv.setHasFixedSize(true)
+
+        getComics()
+        if (!allStored) {
+            viewModel.getComics()
         } else {
             binding.ComicsRv.visibility = View.VISIBLE
-            adapter.getData(comicList)
-            binding.ComicsRv.adapter = adapter
-            binding.ComicsRv.layoutManager = GridLayoutManager(requireContext(), 2)
-            binding.ComicsRv.setHasFixedSize(true)
+            adapter.getData(allComicList)
         }
 
         binding.filter.setOnClickListener {
@@ -84,7 +93,6 @@ class ComicsFragment : Fragment() {
         if (selectedOptionId == null) {
             selectedOptionId = R.id.allComics
         }
-        Log.d("Selected", selectedOptionId.toString())
         filterGroup.check(selectedOptionId!!)
         view.filterSave.setOnClickListener {
             selectedOptionId = filterGroup.checkedRadioButtonId
@@ -99,30 +107,16 @@ class ComicsFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun handleFilter() {
         when (selectedOptionId) {
-            R.id.allComics -> {
-                adapter.getData(comicList)
-                binding.ComicsRv.visibility = View.VISIBLE
-                binding.ComicsRv.adapter = adapter
-                binding.ComicsRv.layoutManager = GridLayoutManager(requireContext(), 2)
-                binding.ComicsRv.setHasFixedSize(true)
-
-                return
-            }
-            R.id.thisWeek -> filteredList = viewModel.filterComics(1, comicList)
-            R.id.lastWeek -> filteredList = viewModel.filterComics(2, comicList)
-            R.id.nextWeek -> filteredList = viewModel.filterComics(3, comicList)
-            R.id.thisMonth -> filteredList = viewModel.filterComics(4, comicList)
+            R.id.allComics -> viewModel.getComics()
+            R.id.thisWeek -> viewModel.getFilterComicsComics(FILTER_THIS_WEEK)
+            R.id.lastWeek -> viewModel.getFilterComicsComics(FILTER_LAST_WEEK)
+            R.id.nextWeek -> viewModel.getFilterComicsComics(FILTER_NEXT_WEEK)
+            R.id.thisMonth -> viewModel.getFilterComicsComics(FILTER_THIS_MONTH)
         }
-        adapter.getData(filteredList)
-        binding.ComicsRv.visibility = View.VISIBLE
-        binding.ComicsRv.adapter = adapter
-        binding.ComicsRv.layoutManager = GridLayoutManager(requireContext(), 2)
-        binding.ComicsRv.setHasFixedSize(true)
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun getComics() {
-        viewModel.getComics()
         viewModel.comicsList.observe(viewLifecycleOwner, Observer { res ->
             when (res.status) {
                 Status.LOADING -> {
@@ -132,16 +126,28 @@ class ComicsFragment : Fragment() {
                 Status.SUCCESS -> {
                     binding.comicsPb.visibility = View.GONE
                     comicList = res.data?.data?.results!!
+                    if (!allStored){
+                        allComicList.addAll(comicList)
+                        allStored = true
+                    }
                     adapter.getData(comicList)
                     binding.ComicsRv.visibility = View.VISIBLE
-                    binding.ComicsRv.adapter = adapter
-                    binding.ComicsRv.layoutManager = GridLayoutManager(requireContext(), 2)
-                    binding.ComicsRv.setHasFixedSize(true)
+
+                    if (comicList.isEmpty()){
+                        binding.ComicsRv.visibility = View.GONE
+                        binding.notFound.visibility = View.VISIBLE
+                    }
+                    else{
+                        binding.ComicsRv.visibility = View.VISIBLE
+                        binding.notFound.visibility = View.GONE
+                    }
                 }
                 Status.ERROR -> {
                     binding.comicsPb.visibility = View.GONE
                     binding.ComicsRv.visibility = View.GONE
-                    Toast.makeText(requireContext(), res.data.toString(), Toast.LENGTH_SHORT).show()
+                    Snackbar.make(binding.root, res.msg.toString(), Snackbar.LENGTH_INDEFINITE).setAction("Retry") {
+                        viewModel.getComics()
+                    }.show()
                 }
             }
         })

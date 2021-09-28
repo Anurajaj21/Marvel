@@ -6,11 +6,11 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.marvel.R
+import com.example.marvel.ViewModels.CharacterViewModel
 import com.example.marvel.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 
 class MainActivity : AppCompatActivity() {
-    private val fragmentManager = supportFragmentManager
     private lateinit var navController: NavController
     private lateinit var bottomNav : BottomNavigationItemView
     private lateinit var binding: ActivityMainBinding

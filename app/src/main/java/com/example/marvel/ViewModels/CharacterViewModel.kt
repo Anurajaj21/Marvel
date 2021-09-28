@@ -1,8 +1,10 @@
 package com.example.marvel.ViewModels
 
+import android.app.Application
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -30,13 +32,17 @@ class CharacterViewModel : ViewModel() {
     val searchedCharacters : LiveData<Resource<ApiResponse<CharacterResponse>>>
     get() = _searchedCharacters
 
+    var characterList : ArrayList<CharacterResponse> = ArrayList()
+    var searchedList : ArrayList<CharacterResponse> = ArrayList()
+
     @RequiresApi(Build.VERSION_CODES.N)
-    fun getAllCharacters() {
+    fun getCharacters() {
         _allCharacters.postValue(Resource.loading())
         GlobalScope.launch(Dispatchers.IO) {
             try {
-                val response = repository.getCharacters()
+                val response = repository.getCharacters(characterList.size)
                 Timber.d(response?.data.toString())
+                characterList.addAll(response?.data?.results!!)
                 _allCharacters.postValue(Resource.success(response))
             }
             catch (e : Exception) {
@@ -56,8 +62,10 @@ class CharacterViewModel : ViewModel() {
         _searchedCharacters.postValue(Resource.loading())
         GlobalScope.launch(Dispatchers.IO) {
             try {
-                val response = repository.getSearchedCharacters(sequence)
+                val response = repository.getSearchedCharacters(searchedList.size, sequence)
                 Timber.d(response?.data.toString())
+                Log.d("SearchList", searchedList.size.toString())
+                searchedList.addAll(response?.data?.results!!)
                 _searchedCharacters.postValue(Resource.success(response))
             }
             catch (e : Exception) {
