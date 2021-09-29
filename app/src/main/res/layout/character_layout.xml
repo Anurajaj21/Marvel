@@ -6,6 +6,7 @@
     android:layout_margin="2dp"
     app:cardElevation="4dp"
     android:padding="4dp"
+    app:cardBackgroundColor="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
